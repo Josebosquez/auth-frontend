@@ -20,29 +20,29 @@ export class Signup extends Component {
   handleOnChange = (event) => {
     this.setState(
       {
-        [event.target.name]: event.target.value,
+        [event.target.name]: event.target.value, // everytime there is a change in a input box, we are updating the value of that box to have the value of what we are typing. 
       },
       () => {
         // console.log("Inside setState Callback");
         // console.log(this.state.firstName);
-        // console.log(event.target.name, ":", event.target.value);
+        // console.log(event.target.name, ":", event.target.value); // this shows the system works to keep track of how changes are being made and saved by the system.
       }
     );
   };
 
   handleOnSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault(); // prevents the web from refreshing when we hit enter or submit and our array disappears if this isnt here.
 
     console.log(this.state);
   };
 
   handleOnBlur = (event) => {
-    console.log(event.target.name);
+    console.log(event.target.name); // renders the state variable above.
     console.log("Handle onBlur Triggered");
 
-    if (this.state[event.target.name].length === 0) {
+    if (this.state[event.target.name].length === 0) {  // bracket notation - if the event.target = one of the variables from state thats for our input boxes. If we add name - one of the variables we used in our rendered html below. If the length of the input box is 0, run the setstate below.
       this.setState({
-        [`${event.target.name}Error`]: `${event.target.placeholder} cannot be empty`,
+        [`${event.target.name}Error`]: `${event.target.placeholder} cannot be empty`, // before the : => this must match the variable name that we set in the state above - passwordError in the state cant be set as event.target.name.err because it wont work. if we sent the place holder as the name that is return in the error, it will look prettier than what we actually but as our name value since its camel cased.
       });
     }
   };
@@ -68,7 +68,7 @@ export class Signup extends Component {
         <div className="form-text">Sign up</div>
 
         <div className="form-div">
-          <form className="form" onSubmit={this.handleOnSubmit}>
+          <form className="form" onSubmit={this.handleOnSubmit /*we are stating that the form will have the following func on line 20*/}> 
             <div className="form-group-inline">
               <div className="inline-container">
                 <label htmlFor="firstName">First Name</label>
@@ -77,7 +77,7 @@ export class Signup extends Component {
                   id="firstName" // id name for css
                   value={firstName} // value is what is being stored in the input box
                   placeholder="First Name" // the words that appear in the input box before you start typing.
-                  name="firstName" // this is the name.
+                  name="firstName" // this is the name that is used for our onBlur function. this will be used to track our input length.
                   onChange={this.handleOnChange}  // handles the onchange function on line 20. 
                   autoFocus // when page renders, user will be able to automatically type into the box that this autofocus is attached to.
                   onBlur={this.handleOnBlur} // handles the on blur function on line 39. what it does is it acts like our err msg checker. if there are 0 characters in length of the input, then it will make the error msg div on line 85 appear in red. 
